@@ -1,7 +1,7 @@
 namespace :docker do
   namespace :assets do
     task :precompile do
-      return unless fetch(:docker_assets_precompile)
+      next unless fetch(:docker_assets_precompile)
 
       on roles(fetch(:docker_role)) do
         execute :docker, task_command(fetch(:docker_assets_precompile_command))
@@ -9,7 +9,7 @@ namespace :docker do
     end
 
     task :copy_to_host do
-      return unless fetch(:docker_assets_copy_to_host)
+      next unless fetch(:docker_assets_copy_to_host)
 
       on roles(fetch(:docker_role)) do
         cmd = ["cp"]

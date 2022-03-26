@@ -3,12 +3,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'capistrano-docker'
-  spec.version       = '0.2.11'
-  spec.authors       = ["Jacek Jakubik"]
-  spec.email         = ["jacek.jakubik@netguru.pl"]
+  spec.version       = '0.3.1'
+  spec.authors       = ["Jacek Jakubik", "Michael Khabarov"]
+  spec.email         = ["michaelkhabarov@alphastate.ru"]
   spec.description   = %q{Docker support for Capistrano 3.x}
   spec.summary       = %q{Docker support for Capistrano 3.x}
-  spec.homepage      = 'https://github.com/netguru/capistrano-docker'
+  spec.homepage      = 'https://github.com/michaelkhabarov/capistrano-docker'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)

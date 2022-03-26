@@ -14,7 +14,7 @@ To get started you need to have:
 
 First - add following file to your gemfile:
 
-    gem 'capistrano-docker', github: 'netguru/capistrano-docker'
+    gem 'capistrano-docker', github: 'michaelkhabarov/capistrano-docker'
 
 Next, add following to your `Capfile`:
 
@@ -66,6 +66,8 @@ Next, optionally, specify the options in your `config/stage/deploy.rb` file, how
     set :docker_compose_build_services - specify services which should be built / ran with docker-compose (ex. docker-compose build web), default: none
     set :docker_pass_env - the list of the environment variables that should be passed over to the docker-compose commands from command line (they are validated wether they exists before they are used) (ex: PULL_REQUEST_ID=10 cap staging docker:compose:start )
     set :docker_assets_precompile_command - command to be executed as assets precompile task (when capistrano/docker/assets is used, defaults to 'rake assets:precompile')
+    set :docker_assets_copy_to_host - should we copy `public` directory from container to `shared/` on host, defaults to true
+    set :docker_symlink_from_shared_to_public - an array of files/folders to symlink from `shared` to `public` on host, defaults to []. It's highly likely that you need to make same symlinks in container.
     set :docker_migrate_command - command to be executed as migration task (when capistrano/docker/migration is used, defaults to 'rake db:migrate')
     set :docker_db_create_command - command to be executed as database creation task (use for first run deployments, defaults to 'rake db:create')
     set :docker_npm_install_command - command to be executed for installing npm packages, defaults to 'npm install --production --no-spin'

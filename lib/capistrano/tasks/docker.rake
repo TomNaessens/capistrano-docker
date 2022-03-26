@@ -88,7 +88,9 @@ namespace :load do
     set :docker_compose_build_services,     -> { nil }
 
     # assets
-    set :docker_assets_precompile_command, -> { "rake assets:precompile" }
+    set :docker_assets_precompile_command,     -> { "rake assets:precompile" }
+    set :docker_assets_copy_to_host,           -> { true }
+    set :docker_symlink_from_shared_to_public, -> { [] }
 
     # migration
     set :docker_migrate_command,           -> { "rake db:migrate" }

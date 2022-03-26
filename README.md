@@ -65,6 +65,7 @@ Next, optionally, specify the options in your `config/stage/deploy.rb` file, how
     set :docker_compose_remove_volumes - should we remove associated volumes with containers during their removal (rm -v option), default: true
     set :docker_compose_build_services - specify services which should be built / ran with docker-compose (ex. docker-compose build web), default: none
     set :docker_pass_env - the list of the environment variables that should be passed over to the docker-compose commands from command line (they are validated wether they exists before they are used) (ex: PULL_REQUEST_ID=10 cap staging docker:compose:start )
+    set :docker_assets_precompile - whether to precompile assets after build or not, default: false
     set :docker_assets_precompile_command - command to be executed as assets precompile task (when capistrano/docker/assets is used, defaults to 'rake assets:precompile')
     set :docker_assets_copy_to_host - should we copy `public` directory from container to `shared/` on host, defaults to true
     set :docker_symlink_from_shared_to_public - an array of files/folders to symlink from `shared` to `public` on host, defaults to []. It's highly likely that you need to make same symlinks in container.

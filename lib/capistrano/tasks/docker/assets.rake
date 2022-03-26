@@ -1,6 +1,8 @@
 namespace :docker do
   namespace :assets do
     task :precompile do
+      return unless fetch(:docker_assets_precompile)
+
       on roles(fetch(:docker_role)) do
         execute :docker, task_command(fetch(:docker_assets_precompile_command))
       end

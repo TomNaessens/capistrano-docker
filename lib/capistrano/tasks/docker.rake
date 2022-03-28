@@ -57,7 +57,7 @@ namespace :docker do
     # set custom apparmor profile
     cmd << "--security-opt apparmor:#{fetch(:docker_apparmor_profile)}" unless fetch(:docker_apparmor_profile).nil?
 
-    cmd << "--env-file #{fetch(:env_file)}" if fetch(:env_file)
+    cmd << "--env-file #{fetch(:docker_env_file)}" if fetch(:docker_env_file)
     cmd << fetch(:docker_additional_options)
     cmd << fetch(:docker_image_full)
 

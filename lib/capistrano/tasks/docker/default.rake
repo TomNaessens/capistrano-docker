@@ -89,6 +89,14 @@ namespace :docker do
       cmd << "-v #{volume}"
     end
 
+    # attach shared volumes
+    fetch(:docker_shared_volumes).each do |volume|
+      cmd << "-v #{File.join(shared_path, volume)}:#{File.join(fetch(:docker_rails_root, volume))}"
+    end
+
+    # attach shared to /shared
+    cmd << "-v #{shared_path}:#{fetch(:docker_shared_path)}" if fetch(:docker_shared_path)
+
     # attach links
     fetch(:docker_links).each do |link|
       cmd << "--link #{link}"

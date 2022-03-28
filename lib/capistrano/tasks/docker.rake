@@ -41,6 +41,14 @@ namespace :docker do
       cmd << "-v #{volume}"
     end
 
+    # attach shared volumes
+    fetch(:docker_shared_volumes).each do |volume|
+      cmd << "-v #{File.join(shared_path, volume)}:#{File.join(fetch(:docker_rails_root, volume))}"
+    end
+
+    # attach shared to /shared
+    cmd << "-v #{shared_path}:#{fetch(:docker_shared_path)}" if fetch(:docker_shared_path)
+
     # attach links
     fetch(:docker_links).each do |link|
       cmd << "--link #{link}"
@@ -68,7 +76,7 @@ namespace :load do
     set :docker_buildpath,            -> { "." }
     set :docker_detach,               -> { true }
     set :docker_volumes,              -> { [] }
-    set :docker_restart_policy,       -> { "always" }
+    set :docker_restart_policy,       -> { "unless-stopped" }
     set :docker_links,                -> { [] }
     set :docker_labels,               -> { [] }
     set :docker_image,                -> { "#{fetch(:application)}_#{fetch(:stage)}" }
@@ -88,6 +96,8 @@ namespace :load do
     set :docker_compose_build_services,     -> { nil }
 
     # assets
+    set :docker_rails_root,                    -> { ENV.fetch("RAILS_ROOT", "/app") }
+    set :docker_shared_path,                   -> { ENV.fetch("DOCKER_SHARED_PATH", "/shared") }
     set :docker_assets_precompile,             -> { false }
     set :docker_assets_precompile_command,     -> { "rake assets:precompile" }
     set :docker_assets_copy_to_host,           -> { true }

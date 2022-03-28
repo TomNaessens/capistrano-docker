@@ -47,7 +47,7 @@ Next, optionally, specify the options in your `config/stage/deploy.rb` file, how
     set :docker_buildpath - the buildpath of the image, defaults to project root directory ( . )
     set :docker_detach - should we detach when running the container (the '-d' option in docker run), defaults to true
     set :docker_volumes - an array of volumes we want to hook up, defaults to empty
-    set :docker_restart_policy - specify the restart policy of the container, defaults to 'always', if nil given, no policy will be applied
+    set :docker_restart_policy - specify the restart policy of the container, defaults to 'unless-stopped', if nil given, no policy will be applied
     set :docker_links - specify an array of links to other containers
     set :docker_labels - specify an array of labels that can be added to a container at runtime, defaults to empty, however the label that is always added is: git.revision.id=REVISION
     set :docker_image - the name of the image that will be used, defaults to: APPNAME_STAGE
@@ -65,9 +65,14 @@ Next, optionally, specify the options in your `config/stage/deploy.rb` file, how
     set :docker_compose_remove_volumes - should we remove associated volumes with containers during their removal (rm -v option), default: true
     set :docker_compose_build_services - specify services which should be built / ran with docker-compose (ex. docker-compose build web), default: none
     set :docker_pass_env - the list of the environment variables that should be passed over to the docker-compose commands from command line (they are validated wether they exists before they are used) (ex: PULL_REQUEST_ID=10 cap staging docker:compose:start )
+
+    set :docker_rails_root - app root in container, default: ENV.fetch("RAILS_ROOT", "/app")
+    set :docker_shared_path - path to mount shared directory, default: ENV.fetch("DOCKER_SHARED_PATH", "/shared")
+    set :docker_shared_volumes - array of files/folders to bind mount from 'shared' on host to `docker_rails_root` in container, default: []
     set :docker_assets_precompile - whether to precompile assets after build or not, default: false
     set :docker_assets_precompile_command - command to be executed as assets precompile task (when capistrano/docker/assets is used, defaults to 'rake assets:precompile')
     set :docker_assets_copy_to_host - should we copy `public` directory from container to `shared/` on host, defaults to true
+
     set :docker_symlink_from_shared_to_public - an array of files/folders to symlink from `shared` to `public` on host, defaults to []. It's highly likely that you need to make same symlinks in container.
     set :docker_migrate_command - command to be executed as migration task (when capistrano/docker/migration is used, defaults to 'rake db:migrate')
     set :docker_db_create_command - command to be executed as database creation task (use for first run deployments, defaults to 'rake db:create')

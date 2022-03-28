@@ -43,7 +43,7 @@ namespace :docker do
 
     # attach shared volumes
     fetch(:docker_shared_volumes).each do |volume|
-      cmd << "-v #{File.join(shared_path, volume)}:#{File.join(fetch(:docker_rails_root, volume))}"
+      cmd << "-v #{File.join(shared_path, volume)}:#{File.join(fetch(:docker_rails_root), volume)}"
     end
 
     # attach shared to /shared

@@ -116,6 +116,7 @@ namespace :docker do
     # attach revision label
     cmd << "--label=git.revision.id=#{fetch(:current_revision)}"
 
+    cmd << "--env-file #{fetch(:env_file)}" if fetch(:env_file)
     cmd << "--restart #{fetch(:docker_restart_policy)}" unless fetch(:docker_restart_policy).nil?
     cmd << fetch(:docker_additional_options)
     cmd << fetch(:docker_image_full)

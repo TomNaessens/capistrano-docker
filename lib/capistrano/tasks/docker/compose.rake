@@ -90,6 +90,7 @@ namespace :docker do
     cmd << _compose_option_build_services
     cmd.unshift _compose_option_project_name
     cmd.unshift _compose_option_compose_path
+    cmd << "--env-file #{fetch(:env_file)}" if fetch(:env_file)
 
     cmd.join(" ")
   end

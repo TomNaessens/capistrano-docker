@@ -57,6 +57,7 @@ Next, optionally, specify the options in your `config/stage/deploy.rb` file, how
     set :docker_cpu_quota - specify the value for --cpu-quota option when running containers (does not work with docker-compose)
     set :docker_apparmor_profile - run docker containers with specified apparmor profile
     set :docker_clean_before_run - stops and removes existing containers before running a new one (useful when running containers with -p option), defaults to false
+    set :docker_env_file - set docker env file, default: nil
 
     set :docker_compose - should we use docker-compose strategy instead (note - all above options are obsolete using this option), using docker-compose requires you to have docker-compose.yml file in your root directory, defaults to false
     set :docker_compose_path -> allow specify the path to the docker-compose.yml (see pull #5), defaults to nil

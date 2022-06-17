@@ -5,6 +5,8 @@ This gem allows you to easily deploy applications based on Docker images. It all
     1. Using default docker strategy (build, run etc)
     2. Using docker-compose strategy
 
+Also supports podman (and podman-compose) by setting `:docker_command` and `:docker_compose_command`.
+
 ### Installation
 
 To get started you need to have:
@@ -14,7 +16,7 @@ To get started you need to have:
 
 First - add following file to your gemfile:
 
-    gem 'capistrano-docker', github: 'michaelkhabarov/capistrano-docker'
+    gem 'capistrano-docker', github: 'TomNaessens/capistrano-docker'
 
 Next, add following to your `Capfile`:
 
@@ -36,6 +38,8 @@ There are additional tasks available, which are run once in a seperate container
     require 'capistrano/docker/migration' - run db:migrate
     require 'capistrano/docker/npm' - run npm install
     require 'capistrano/docker/bower' - run bower install
+    require 'capistrano/docker/compose/logs' - get logs for a docker compose service
+    require 'capistrano/docker/compose/migration' - docker compose migration goodies
 
 
 Next, optionally, specify the options in your `config/stage/deploy.rb` file, however the defaults provided should work out-of-the-box.
@@ -67,7 +71,9 @@ Next, optionally, specify the options in your `config/stage/deploy.rb` file, how
     set :docker_compose_remove_volumes - should we remove associated volumes with containers during their removal (rm -v option), default: true
     set :docker_compose_build_services - specify services which should be built / ran with docker-compose (ex. docker-compose build web), default: none
     set :docker_pass_env - the list of the environment variables that should be passed over to the docker-compose commands from command line (they are validated wether they exists before they are used) (ex: PULL_REQUEST_ID=10 cap staging docker:compose:start )
-    set :docker_compose_command - the docker-compose command, defaults to: podman-compose 
+    set :docker_compose_command - the docker-compose command, defaults to `podman-compose` 
+    set :docker_compose_default_service - the docker-compose service to migrate, defaults to "web" 
+    set :docker_compose_migrate_service - the docker-compose service to migrate, defaults to `:docker_compose_migrate_service` 
 
     set :docker_rails_root - app root in container, default: ENV.fetch("RAILS_ROOT", "/app")
     set :docker_shared_path - path to mount shared directory, default: ENV.fetch("DOCKER_SHARED_PATH", "/shared")

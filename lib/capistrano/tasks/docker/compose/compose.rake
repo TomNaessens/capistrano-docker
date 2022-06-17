@@ -15,7 +15,7 @@ namespace :docker do
 
   namespace :deploy do
     task :compose do
-      %w( validate prepare build start ).each do |task|
+      %w( validate prepare build down start ).each do |task|
         invoke "docker:deploy:compose:#{task}"
       end
     end

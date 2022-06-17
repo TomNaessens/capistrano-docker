@@ -98,12 +98,14 @@ namespace :load do
     set :docker_compose_remove_volumes,     -> { true }
     set :docker_compose_build_services,     -> { nil }
     set :docker_compose_command,            -> { "docker-compose" }
+    set :docker_compose_default_service,    -> { "web" }
+    set :docker_compose_migrate_service,    -> { fetch(:docker_compose_default_service) }
 
     # assets
     set :docker_rails_root,                    -> { ENV.fetch("RAILS_ROOT", "/app") }
     set :docker_shared_path,                   -> { ENV.fetch("DOCKER_SHARED_PATH", "/shared") }
     set :docker_assets_precompile,             -> { false }
-    set :docker_assets_precompile_command,     -> { "rake assets:precompile" }
+    set :docker_assets_precompile_command,     -> { "rails assets:precompile" }
     set :docker_assets_copy_to_host,           -> { true }
     set :docker_symlink_from_shared_to_public, -> { [] }
 

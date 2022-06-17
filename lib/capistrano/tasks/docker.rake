@@ -89,6 +89,7 @@ namespace :load do
     set :docker_cpu_quota,            -> { nil }
     set :docker_clean_before_run,     -> { false }
     set :docker_env_file,             -> { nil }
+    set :docker_command,              -> { "docker" }
 
     set :docker_compose_path,               -> { nil }
     set :docker_compose,                    -> { false }
@@ -96,6 +97,7 @@ namespace :load do
     set :docker_compose_remove_after_stop,  -> { true }
     set :docker_compose_remove_volumes,     -> { true }
     set :docker_compose_build_services,     -> { nil }
+    set :docker_compose_command,            -> { "docker-compose" }
 
     # assets
     set :docker_rails_root,                    -> { ENV.fetch("RAILS_ROOT", "/app") }

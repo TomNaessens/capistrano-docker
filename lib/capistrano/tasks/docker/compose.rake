@@ -34,7 +34,7 @@ namespace :docker do
       task :build do
         on roles(fetch(:docker_role)) do
           within release_path do
-            execute :"docker-compose", compose_build_command
+            execute fetch(:docker_compose_command), compose_build_command
           end
         end
       end
@@ -43,7 +43,7 @@ namespace :docker do
       task :start do
         on roles(fetch(:docker_role)) do
           within release_path do
-            execute :"docker-compose", compose_start_command
+            execute fetch(:docker_compose_command), compose_start_command
           end
         end
       end
@@ -52,8 +52,8 @@ namespace :docker do
       task :stop do
         on roles(fetch(:docker_role)) do
           within release_path do
-            execute :"docker-compose", compose_stop_command
-            execute :"docker-compose", compose_remove_command unless fetch(:docker_compose_remove_after_stop) == false
+            execute fetch(:docker_compose_command), compose_stop_command
+            execute fetch(:docker_compose_command), compose_remove_command unless fetch(:docker_compose_remove_after_stop) == false
           end
         end
       end
@@ -62,7 +62,7 @@ namespace :docker do
       task :down do
         on roles(fetch(:docker_role)) do
           within release_path do
-            execute :"docker-compose", compose_down_command
+            execute fetch(:docker_compose_command), compose_down_command
           end
         end
       end

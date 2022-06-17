@@ -23,7 +23,7 @@ namespace :docker do
       task :build do
         on roles(fetch(:docker_role)) do
           within release_path do
-            execute :docker, build_command
+            execute fetch(:docker_command), build_command
           end
         end
       end
@@ -31,7 +31,7 @@ namespace :docker do
       task :run do
         on roles(fetch(:docker_role)) do
           invoke 'docker:deploy:default:clean_current' if running?
-          execute :docker, run_command
+          execute fetch(:docker_command), run_command
         end
       end
       before :run, "docker:current_revision"
@@ -58,7 +58,7 @@ namespace :docker do
 
       task :tag do
         on roles(fetch(:docker_role)) do
-          execute :docker, "tag #{fetch(:docker_image_full)} #{fetch(:docker_image)}:latest"
+          execute fetch(:docker_command), "tag #{fetch(:docker_image_full)} #{fetch(:docker_image)}:latest"
         end
       end
     end

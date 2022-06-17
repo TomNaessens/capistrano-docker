@@ -4,7 +4,7 @@ namespace :docker do
       next unless fetch(:docker_assets_precompile)
 
       on roles(fetch(:docker_role)) do
-        execute :docker, task_command(fetch(:docker_assets_precompile_command))
+        execute fetch(:docker_command), task_command(fetch(:docker_assets_precompile_command))
       end
     end
 
@@ -15,7 +15,7 @@ namespace :docker do
         cmd = ["cp"]
         cmd << "#{fetch(:docker_current_container)}:#{fetch(:docker_rails_root)}/public"
         cmd << "#{shared_path}"
-        execute :docker, cmd.join(" ")
+        execute fetch(:docker_command), cmd.join(" ")
       end
     end
 
@@ -31,7 +31,7 @@ namespace :docker do
       on roles(fetch(:docker_role)) do
         fetch(:docker_symlink_from_shared_to_public).each do |dir|
           execute(
-            :docker,
+            fetch(:docker_command),
             :exec,
             fetch(:docker_current_container),
             "ln -sf #{fetch(:docker_shared_path)}/#{dir} #{fetch(:docker_rails_root)}/public"

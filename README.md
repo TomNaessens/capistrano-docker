@@ -58,6 +58,7 @@ Next, optionally, specify the options in your `config/stage/deploy.rb` file, how
     set :docker_apparmor_profile - run docker containers with specified apparmor profile
     set :docker_clean_before_run - stops and removes existing containers before running a new one (useful when running containers with -p option), defaults to false
     set :docker_env_file - set docker env file, default: nil
+    set :docker_command - the docker command, defaults to: docker
 
     set :docker_compose - should we use docker-compose strategy instead (note - all above options are obsolete using this option), using docker-compose requires you to have docker-compose.yml file in your root directory, defaults to false
     set :docker_compose_path -> allow specify the path to the docker-compose.yml (see pull #5), defaults to nil
@@ -66,6 +67,7 @@ Next, optionally, specify the options in your `config/stage/deploy.rb` file, how
     set :docker_compose_remove_volumes - should we remove associated volumes with containers during their removal (rm -v option), default: true
     set :docker_compose_build_services - specify services which should be built / ran with docker-compose (ex. docker-compose build web), default: none
     set :docker_pass_env - the list of the environment variables that should be passed over to the docker-compose commands from command line (they are validated wether they exists before they are used) (ex: PULL_REQUEST_ID=10 cap staging docker:compose:start )
+    set :docker_compose_command - the docker-compose command, defaults to: podman-compose 
 
     set :docker_rails_root - app root in container, default: ENV.fetch("RAILS_ROOT", "/app")
     set :docker_shared_path - path to mount shared directory, default: ENV.fetch("DOCKER_SHARED_PATH", "/shared")

@@ -3,7 +3,7 @@ namespace :docker do
     task :rebuild do
       on roles(fetch(:docker_role)) do
         within release_path do
-          execute :docker, build_command
+          execute fetch(:docker_command), build_command
         end
       end
     end
